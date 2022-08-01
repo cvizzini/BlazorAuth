@@ -1,5 +1,7 @@
 using BlazorApp1.Server.Context;
+using BlazorApp1.Server.Context.Entities;
 using BlazorApp1.Server.Extensions;
+using BlazorApp1.Server.TokenHelpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.ResponseCompression;
@@ -11,7 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 AppExtensions.SetupDatabaseContext(builder.Services, builder.Configuration);
-builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+builder.Services.AddIdentity<User, IdentityRole>()
     .AddEntityFrameworkStores<BlazorApp1Context>();
 
 var jwtSettings = builder.Configuration.GetSection("JWTSettings");
@@ -35,6 +37,8 @@ builder.Services.AddAuthentication(opt =>
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
+
+builder.Services.AddScoped<ITokenService, TokenService>();
 
 var app = builder.Build();
 

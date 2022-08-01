@@ -1,5 +1,6 @@
 ﻿
 using BlazorApp1.Server.Configuration;
+using BlazorApp1.Server.Context.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -8,7 +9,7 @@ using System;
 
 namespace BlazorApp1.Server.Context
 {
-    public class BlazorApp1Context : IdentityDbContext<IdentityUser>
+    public class BlazorApp1Context : IdentityDbContext<User>
     {
         private readonly IConfiguration configuration;
        

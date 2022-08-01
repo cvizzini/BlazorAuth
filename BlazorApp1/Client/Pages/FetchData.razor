@@ -1,8 +1,7 @@
 ﻿@page "/fetchdata"
-@using BlazorApp1.Shared
 @inject HttpClient Http
-@attribute [Authorize(Roles = "Administrator")]
-
+@*@attribute [Authorize(Roles = "Administrator")]*@
+@attribute [Authorize]
 
 <PageTitle>Weather forecast</PageTitle>
 
@@ -42,8 +41,18 @@ else
 @code {
     private WeatherForecast[]? forecasts;
 
+    [Inject]
+    public HttpInterceptorService Interceptor { get; set; }
+
     protected override async Task OnInitializedAsync()
     {
+        Interceptor.RegisterEvent();
         forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("WeatherForecast");
     }
+
+    //All the other methods in this class - Get, Sort, Search, Delete
+
+    public void Dispose() => Interceptor.DisposeEvent();
+
 }
+

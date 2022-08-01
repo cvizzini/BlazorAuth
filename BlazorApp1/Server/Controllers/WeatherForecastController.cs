@@ -4,7 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BlazorApp1.Server.Controllers
 {
-    [Authorize(Roles = "Administrator")]
+    //[Authorize(Roles = "Administrator")]
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
